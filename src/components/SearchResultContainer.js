@@ -11,20 +11,25 @@ class SearchResultContainer extends Component {
 
   // When this component mounts, search the Giphy API for pictures of kittens
   componentDidMount() {
-    this.searchGiphy("kittens");
+    this.searchGiphy();
   }
 
-  searchGiphy = query => {
-    API.search(query)
-      .then(res => this.setState({ results: res.data.data }))
+  searchGiphy = () => {
+    API.search()
+      .then(res => this.setState({ results: res.data.results }))
+      .then(data => {
+        console.log(this.state.results);
+      }) 
       .catch(err => console.log(err));
   };
 
   handleInputChange = event => {
     const name = event.target.name;
     const value = event.target.value;
+    const filteredEmployees = this.state.results.filter(employee => employee.name.first.includes(value));
     this.setState({
-      [name]: value
+      [name]: value,
+      results: filteredEmployees
     });
   };
 
