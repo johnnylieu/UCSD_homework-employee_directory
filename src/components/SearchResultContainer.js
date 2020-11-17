@@ -39,6 +39,12 @@ class SearchResultContainer extends Component {
     this.searchGiphy(this.state.search);
   };
 
+  handleButtonPush = event => {
+    let type = event.target.name;
+    this.setState({
+      sortRule: type
+    })};
+
   render() {
     return (
       <div>
