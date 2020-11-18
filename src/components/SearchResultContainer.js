@@ -40,10 +40,24 @@ class SearchResultContainer extends Component {
   };
 
   handleButtonPush = event => {
+    console.log("hit")
     let type = event.target.name;
+    const sortedArray = this.state.results.sort (
+      function (a, b) {
+        const firstNameA = a.name.first.toLowerCase();
+        const firstNameB = b.name.first.toLowerCase();
+
+        if (firstNameA > firstNameB) {
+          return 1
+        } else if (firstNameA < firstNameB) {
+          return -1
+        } else { return 0 }
+      }
+    )
     this.setState({
-      sortRule: type
-    })};
+      results: sortedArray
+    })
+  }
 
   render() {
     return (
@@ -53,7 +67,9 @@ class SearchResultContainer extends Component {
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
         />
-        <ResultList results={this.state.results} />
+        <ResultList results={this.state.results}
+        handleButtonPush={this.handleButtonPush}
+         />
       </div>
     );
   }
